@@ -1,0 +1,370 @@
+
+This is the code for assignment 1 of APM466
+
+```{r}
+info<-read.csv("Bond Data APM466 - Chosen .csv")
+prices<-read.csv("Bond Data APM466 - Chosen Prices.csv")
+
+```
+
+```{r}
+# QUESTION 4.a)
+
+ytmcalc<-function(yieldtomat){
+  Pri-100*exp(-yieldtomat*ttm/365)-(coup/yieldtomat)*(1-exp(-yieldtomat*ttm/365))
+}
+
+
+in_dates=as.Date(c("2020-01-02","2020-01-03","2020-01-06","2020-01-07","2020-01-08","2020-01-09","2020-01-10","2020-01-13","2020-01-14","2020-01-15"))
+
+#BOND 1
+ytm_1<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.2[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[1])-in_dates[j])
+  coup<-info$COUPON[1]
+  ytm_1<-c(ytm_1,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+
+
+
+#BOND 2
+ytm_2<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.4[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[2])-in_dates[j])
+  coup<-info$COUPON[2]
+  ytm_2<-c(ytm_2,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+
+
+#BOND 3
+ytm_3<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.3[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[3])-in_dates[j])
+  coup<-info$COUPON[3]
+  ytm_3<-c(ytm_3,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+
+
+#BOND 4
+ytm_4<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.8[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[4])-in_dates[j])
+  coup<-info$COUPON[4]
+  ytm_4<-c(ytm_4,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+#BOND 5
+
+ytm_5<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.6[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[5])-in_dates[j])
+  coup<-info$COUPON[5]
+  ytm_5<-c(ytm_5,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+#BOND 6
+ytm_6<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.20[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[6])-in_dates[j])
+  coup<-info$COUPON[6]
+  ytm_6<-c(ytm_6,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+#BOND 7 
+
+ytm_7<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.24[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[7])-in_dates[j])
+  coup<-info$COUPON[7]
+  ytm_7<-c(ytm_7,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+#BOND 8
+
+ytm_8<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.31[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[8])-in_dates[j])
+  coup<-info$COUPON[8]
+  ytm_8<-c(ytm_8,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+
+#BOND 9
+
+ytm_9<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.30[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[9])-in_dates[j])
+  coup<-info$COUPON[9]
+  ytm_9<-c(ytm_9,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+#BOND 10
+ytm_10<-c()
+for (j in c(1:10)){
+  Pri<-prices$B.22[j]
+  ttm<-as.numeric(as.Date(info$MATURITY[10])-in_dates[j])
+  coup<-info$COUPON[10]
+  ytm_10<-c(ytm_10,uniroot(ytmcalc,c(0.0001,1))$root)
+}
+
+
+
+
+yieldstomat<-matrix(data=c(ytm_1,ytm_2,ytm_3,ytm_4,ytm_5,ytm_6,ytm_7,ytm_8,ytm_9,ytm_10),nrow=10,ncol=10)
+
+
+
+#NOW JUST PLOT
+
+
+plot(approx(yieldstomat[1,])$x,approx(yieldstomat[1,])$y,type="l",col="red",xlab="half-years",ylab="YTM",ylim=c(0.014,0.026),main="Yield to Maturity")
+lines(approx(yieldstomat[2,])$x,approx(yieldstomat[2,])$y,col="green")
+lines(approx(yieldstomat[3,])$x,approx(yieldstomat[3,])$y,col="blue")
+lines(approx(yieldstomat[4,])$x,approx(yieldstomat[4,])$y,col="purple")
+lines(approx(yieldstomat[5,])$x,approx(yieldstomat[5,])$y,col="pink")
+lines(approx(yieldstomat[6,])$x,approx(yieldstomat[6,])$y,col="black")
+lines(approx(yieldstomat[7,])$x,approx(yieldstomat[7,])$y,col="brown")
+lines(approx(yieldstomat[8,])$x,approx(yieldstomat[8,])$y,col="lightgoldenrod")
+lines(approx(yieldstomat[9,])$x,approx(yieldstomat[9,])$y,col="lightsalmon")
+lines(approx(yieldstomat[10,])$x,approx(yieldstomat[10,])$y,col="tan")
+
+
+
+legend("topright",
+c("2020-01-02","2020-01-03","2020-01-06","2020-01-07","2020-01-08","2020-01-09","2020-01-10","2020-01-13","2020-01-14","2020-01-15"),
+fill=c("red","green","blue","purple","pink","black","brown","lightgoldenrod","lightsalmon","tan")
+,bg="transparent")
+```
+```{r}
+# THE YTM VALUES
+yieldstomat
+
+```
+
+
+
+```{r}
+
+#QUESTION 4 b)
+
+#BOND 1
+sp_1<-c()
+for (j in c(1:10)){
+  sp_1<-c(sp_1,-2*log((prices$B.2[j])/(0.75+100)))
+}
+
+
+sp_2<-c()
+for (j in c(1:10)){
+  sp_2<-c(sp_2,-log((prices$B.4[j]-0.375*exp(-sp_1[j]*0.5))/(100+0.375)))
+}
+
+
+sp_3<-c()
+for (j in c(1:10)){
+  sp_3<-c(sp_3,-(2/3)*log((prices$B.3[j]-0.375*exp(-sp_1[j])-0.375*exp(-sp_2[j]*0.5))/(100+0.375)))
+}
+
+sp_4<-c()
+for (j in c(1:10)){
+  sp_4<-c(sp_4,-(1/2)*log((prices$B.8[j]-0.375*exp(-sp_1[j]*1.5)-0.375*exp(-sp_2[j])-0.375*exp(-sp_3[j]*0.5))/(100+0.375)))
+}
+
+
+sp_5<-c()
+for (j in c(1:10)){
+  sp_5<-c(sp_5,-(2/5)*log((prices$B.6[j]-0.25*exp(-sp_1[j]*2)-0.25*exp(-sp_2[j]*1.5)-0.25*exp(-sp_3[j])-0.25*exp(-sp_4[j]*0.5))/(100+0.25)))
+}
+
+
+
+#THIS IS FUDGED
+sp_6<-c()
+for (j in c(1:10)){
+  sp_6<-c(sp_6,-(1/3)*log((prices$B.20[j]-0.875*exp(-sp_1[j]*2.5)-0.875*exp(-sp_2[j]*2)-0.875*exp(-sp_3[j]*1.5)-0.875*exp(-sp_4[j]*1)-0.875*exp(-sp_5[j]*0.5))/(100+0.875)))
+}
+
+
+
+
+#REAL
+sp_7<-c()
+for (j in c(1:10)){
+  sp_7<-c(sp_7,-(2/7)*log((prices$B.24[j]-0.75*exp(-sp_1[j]*3)-0.75*exp(-sp_2[j]*2.5)-0.75*exp(-sp_3[j]*2)-0.75*exp(-sp_4[j]*1.5)-0.75*exp(-sp_5[j]*1)-0.75*exp(-sp_6[j]*0.5))/(100+0.75)))
+}
+
+
+
+
+# ALSO MAYBE FOR 8 
+sp_8<-c()
+for (j in c(1:10)){
+  sp_8<-c(sp_8,-0.25*log((prices$B.31[j]-1.125*exp(-sp_1[j]*3.5)-1.125*exp(-sp_2[j]*3)-1.125*exp(-sp_3[j]*2.5)-1.125*exp(-sp_4[j]*2)-1.125*exp(-sp_5[j]*1.5)-1.125*exp(-sp_6[j]*1)-1.125*exp(-sp_7[j]*0.5))/(100+1.125)))
+}
+
+#BACK TO GOOD
+
+sp_9<-c()
+for (j in c(1:10)){
+  sp_9<-c(sp_9,-(2/9)*log((prices$B.30[j]-1.25*exp(-sp_1[j]*4)-1.25*exp(-sp_2[j]*3.5)-1.25*exp(-sp_3[j]*3)-1.25*exp(-sp_4[j]*2.5)-1.25*exp(-sp_5[j]*2)-1.25*exp(-sp_6[j]*1.5)-1.25*exp(-sp_7[j]*1)-1.25*exp(-sp_8[j]*0.5))/(100+1.25)))
+}
+
+
+sp_10<-c()
+for (j in c(1:10)){
+  sp_10<-c(sp_10,-(2/9)*log((prices$B.22[j]-0.75*exp(-sp_1[j]*4.5)-0.75*exp(-sp_2[j]*4)-0.75*exp(-sp_3[j]*3.5)-0.75*exp(-sp_4[j]*3)-0.75*exp(-sp_5[j]*2.5)-0.75*exp(-sp_6[j]*2)-0.25*exp(-sp_7[j]*1.5)-0.75*exp(-sp_8[j])-0.75*exp(-sp_9[j]*0.5))/(100+0.75)))
+}
+
+
+
+
+
+spots<-matrix(data=c(sp_1,sp_2,sp_3,sp_4,sp_5,sp_6,sp_7,sp_8,sp_9,sp_10),nrow=10,ncol=10)
+
+
+
+
+plot(approx(spots[1,])$x,approx(spots[1,])$y,type="l",col="red",xlab="half-years",ylab="spot rate",main="Spot Rates")
+lines(approx(spots[2,])$x,approx(spots[2,])$y,col="green")
+lines(approx(spots[3,])$x,approx(spots[3,])$y,col="blue")
+lines(approx(spots[4,])$x,approx(spots[4,])$y,col="purple")
+lines(approx(spots[5,])$x,approx(spots[5,])$y,col="pink")
+lines(approx(spots[6,])$x,approx(spots[6,])$y,col="black")
+lines(approx(spots[7,])$x,approx(spots[7,])$y,col="brown")
+lines(approx(spots[8,])$x,approx(spots[8,])$y,col="lightgoldenrod")
+lines(approx(spots[9,])$x,approx(spots[9,])$y,col="lightsalmon")
+lines(approx(spots[10,])$x,approx(spots[10,])$y,col="tan")
+
+
+
+legend("topright",
+c("2020-01-02","2020-01-03","2020-01-06","2020-01-07","2020-01-08","2020-01-09","2020-01-10","2020-01-13","2020-01-14","2020-01-15"),
+fill=c("red","green","blue","purple","pink","black","brown","lightgoldenrod","lightsalmon","tan")
+,bg="transparent")
+
+
+
+
+
+
+```
+
+
+
+```{r}
+# QUESTION 4.C)
+#FORWARD RATES
+
+#F11 
+
+F11<-sp_2
+
+#F12
+
+F12<-(2*sp_4-sp_2)/1
+
+#F13
+
+F13<-(3*sp_6-sp_2)/2
+
+#F14
+
+F14<-(4*sp_8-sp_2)/3
+
+#F23
+F23<-(3*sp_6-2*sp_4)/1
+
+#F24
+F24<-(4*sp_8-2*sp_4)/2
+
+#F34
+F34<-(4*sp_8-3*sp_6)/1
+
+forw<-matrix(c(F11,F12,F13,F14),nrow=10,ncol=4)
+
+plot(approx(forw[1,])$x,approx(forw[1,])$y,type="l",col="red",xlab="years",ylab="one year forward rate",ylim=c(0.014,0.0175),main="Forward Curve")
+lines(approx(forw[2,])$x,approx(forw[2,])$y,col="green")
+lines(approx(forw[3,])$x,approx(forw[3,])$y,col="blue")
+lines(approx(forw[4,])$x,approx(forw[4,])$y,col="purple")
+lines(approx(forw[5,])$x,approx(forw[5,])$y,col="pink")
+lines(approx(forw[6,])$x,approx(forw[6,])$y,col="black")
+lines(approx(forw[7,])$x,approx(forw[7,])$y,col="brown")
+lines(approx(forw[8,])$x,approx(forw[8,])$y,col="lightgoldenrod")
+lines(approx(forw[9,])$x,approx(forw[9,])$y,col="lightsalmon")
+lines(approx(forw[10,])$x,approx(forw[10,])$y,col="tan")
+
+
+
+legend("topright",
+c("2020-01-02","2020-01-03","2020-01-06","2020-01-07","2020-01-08","2020-01-09","2020-01-10","2020-01-13","2020-01-14","2020-01-15"),
+fill=c("red","green","blue","purple","pink","black","brown","lightgoldenrod","lightsalmon","tan")
+,bg="transparent")
+
+
+```
+
+
+
+
+```{r}
+# QUESTION 5
+
+# THE COVARIANCE MATRICES!!!
+
+lr_1<-diff(log(ytm_2))
+lr_2<-diff(log(ytm_4))
+lr_3<-diff(log(ytm_6))
+lr_4<-diff(log(ytm_8))
+lr_5<-diff(log(ytm_10))
+
+logretmat<-matrix(data=c(lr_1,lr_2,lr_3,lr_4,lr_5),nrow=9,ncol=5)
+
+cov_logret<-cov(logretmat)
+
+
+
+
+forwardmat<-matrix(data=c(sp_2,F12,F13,F14),nrow=10,ncol=4)
+
+
+cov_forward<-cov(forwardmat)
+
+
+# the covariance matrix of log returns
+cov_logret
+
+# the covariance matrix of forward rates
+
+cov_forward
+```
+
+```{r}
+# QUESTION 6
+
+#calculate the eigenvalues and eigenvectors
+
+#the eigen for the log returns
+elogret<-eigen(cov_logret)
+
+#the eigen for the forward rates
+eforward<-eigen(cov_forward)
+
+
+elogret
+eforward
+```
+
+
+
