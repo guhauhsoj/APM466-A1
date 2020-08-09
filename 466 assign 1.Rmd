@@ -1,7 +1,6 @@
 
 This is the code for assignment 1 of APM466
 
-TEST
 
 ```{r}
 info<-read.csv("Bond Data APM466 - Chosen .csv")
